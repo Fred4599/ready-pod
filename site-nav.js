@@ -6,8 +6,10 @@ class RPSiteNav extends HTMLElement {
 
     this.innerHTML = `
       <style>
-        #header-outer {
-          position: relative;
+        @media (max-width: 999px) {
+          #header-outer {
+            position: relative;
+          }
         }
         #rp-mobile-dropdown {
           position: absolute;
