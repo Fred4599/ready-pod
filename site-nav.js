@@ -6,50 +6,62 @@ class RPSiteNav extends HTMLElement {
 
     this.innerHTML = `
       <style>
-        #slide-out-widget-area.fullscreen {
+        #header-outer {
+          position: relative;
+        }
+        #rp-mobile-dropdown {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: #fff;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+          z-index: 99999;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease;
+        }
+        #rp-mobile-dropdown.open {
+          max-height: 400px;
+        }
+        #rp-mobile-dropdown ul {
+          list-style: none;
+          padding: 8px 0;
+          margin: 0;
+        }
+        #rp-mobile-dropdown ul li {
+          margin: 0;
+          padding: 0;
+          border-bottom: 1px solid #f0f0f0;
+        }
+        #rp-mobile-dropdown ul li:last-child {
+          border-bottom: none;
+        }
+        #rp-mobile-dropdown ul li a {
+          color: #333;
+          font-size: 16px;
+          font-family: 'Open Sans', sans-serif;
+          font-weight: 400;
+          text-decoration: none;
+          display: block;
+          padding: 14px 24px;
+          transition: background 0.2s ease, color 0.2s ease;
+        }
+        #rp-mobile-dropdown ul li a:hover {
+          background: #f9f9f9;
+          color: #db6527;
+        }
+        #rp-mobile-backdrop {
           position: fixed;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background: rgba(0, 0, 0, 0.95);
-          z-index: 99999;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          opacity: 0;
-          visibility: hidden;
-          transition: opacity 0.3s ease, visibility 0.3s ease;
+          z-index: 9999;
+          display: none;
         }
-        #slide-out-widget-area.fullscreen.open {
-          opacity: 1;
-          visibility: visible;
-        }
-        #slide-out-widget-area .off-canvas-menu-container ul {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          text-align: center;
-        }
-        #slide-out-widget-area .off-canvas-menu-container ul li {
-          margin: 0;
-          padding: 0;
-        }
-        #slide-out-widget-area .off-canvas-menu-container ul li a {
-          color: #fff;
-          font-size: 22px;
-          font-family: 'Open Sans', sans-serif;
-          font-weight: 400;
-          text-decoration: none;
+        #rp-mobile-backdrop.open {
           display: block;
-          padding: 12px 20px;
-          transition: color 0.2s ease;
-        }
-        #slide-out-widget-area .off-canvas-menu-container ul li a:hover {
-          color: #db6527;
-        }
-        body.overflow-hidden {
-          overflow: hidden;
         }
         .slide-out-widget-area-toggle a.open .lines-button .lines,
         .slide-out-widget-area-toggle a.open .lines-button .lines:before,
@@ -100,56 +112,52 @@ class RPSiteNav extends HTMLElement {
             </div>
           </div>
         </header>
+        <div id="rp-mobile-dropdown">
+        <ul>
+          <li class="menu-item${productsActiveClass}"><a href="products.html">Products</a></li>
+          <li class="menu-item"><a href="index.html#boxhouse-villages">Box House Villages</a></li>
+          <li class="menu-item"><a target="_blank" rel="noopener" href="https://www.boxhouse.com/">Box House Link</a></li>
+          <li class="menu-item"><a target="_blank" rel="noopener" href="https://www.solarpod.com/">Solar Pod Link</a></li>
+          <li class="menu-item${contactActiveClass}"><a href="contact-us.html">Contact Us</a></li>
+        </ul>
       </div>
-      <div id="slide-out-widget-area" class="fullscreen alt">
-        <div class="inner-wrap">
-          <div class="off-canvas-menu-container mobile-only">
-            <ul class="menu">
-              <li class="menu-item${productsActiveClass}"><a href="products.html">Products</a></li>
-              <li class="menu-item"><a href="index.html#boxhouse-villages">Box House Villages</a></li>
-              <li class="menu-item"><a target="_blank" rel="noopener" href="https://www.boxhouse.com/">Box House Link</a></li>
-              <li class="menu-item"><a target="_blank" rel="noopener" href="https://www.solarpod.com/">Solar Pod Link</a></li>
-              <li class="menu-item${contactActiveClass}"><a href="contact-us.html">Contact Us</a></li>
-            </ul>
-          </div>
-        </div>
       </div>
+      <div id="rp-mobile-backdrop"></div>
     `;
 
     // Mobile menu toggle
     const toggle = this.querySelector('.slide-out-widget-area-toggle a');
-    const slideOut = this.querySelector('#slide-out-widget-area');
-    const body = document.body;
+    const dropdown = this.querySelector('#rp-mobile-dropdown');
+    const backdrop = this.querySelector('#rp-mobile-backdrop');
 
-    if (toggle && slideOut) {
+    const closeMenu = () => {
+      toggle.classList.remove('open');
+      toggle.classList.add('closed');
+      toggle.setAttribute('aria-expanded', 'false');
+      dropdown.classList.remove('open');
+      backdrop.classList.remove('open');
+    };
+
+    if (toggle && dropdown) {
       toggle.addEventListener('click', (e) => {
         e.preventDefault();
-        const isOpen = toggle.classList.contains('open');
-
-        if (isOpen) {
-          toggle.classList.remove('open');
-          toggle.classList.add('closed');
-          toggle.setAttribute('aria-expanded', 'false');
-          slideOut.classList.remove('open');
-          body.classList.remove('overflow-hidden');
+        if (toggle.classList.contains('open')) {
+          closeMenu();
         } else {
           toggle.classList.remove('closed');
           toggle.classList.add('open');
           toggle.setAttribute('aria-expanded', 'true');
-          slideOut.classList.add('open');
-          body.classList.add('overflow-hidden');
+          dropdown.classList.add('open');
+          backdrop.classList.add('open');
         }
       });
 
-      // Close menu when a link is tapped
-      slideOut.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          toggle.classList.remove('open');
-          toggle.classList.add('closed');
-          toggle.setAttribute('aria-expanded', 'false');
-          slideOut.classList.remove('open');
-          body.classList.remove('overflow-hidden');
-        });
+      // Close when tapping outside (the backdrop)
+      backdrop.addEventListener('click', closeMenu);
+
+      // Close when a link is tapped
+      dropdown.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
       });
     }
   }
