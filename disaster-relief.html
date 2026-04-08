@@ -165,6 +165,46 @@
       display: block;
     }
 
+    .rp-video-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #000;
+    }
+    .rp-video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity .3s;
+    }
+    .rp-video-thumb:hover img { opacity: .75; }
+    .rp-video-thumb .rp-play-btn {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 80px; height: 80px;
+      background: rgba(219,101,39,.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s, background .2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,.4);
+    }
+    .rp-video-thumb:hover .rp-play-btn {
+      transform: translate(-50%,-50%) scale(1.1);
+      background: rgba(219,101,39,1);
+    }
+    .rp-video-thumb .rp-play-btn svg {
+      width: 32px; height: 32px;
+      margin-left: 4px;
+      fill: #fff;
+    }
+
     .rp-split-content {
       display: flex;
       flex-direction: column;
@@ -376,7 +416,10 @@
     <!-- ============ 2. DISASTER EXPO VIDEO ============ -->
     <section class="rp-split-row reverse">
       <div class="rp-split-media">
-        <iframe src="https://player.vimeo.com/video/1136540306?badge=0&autopause=0&player_id=0&app_id=58479" title="ReadyPod at the Disaster Expo" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <div class="rp-video-thumb" onclick="this.innerHTML='<iframe src=\'https://player.vimeo.com/video/1136540306?badge=0&amp;autopause=0&amp;autoplay=1\' title=\'ReadyPod at the Disaster Expo\' allow=\'autoplay; fullscreen; picture-in-picture\' allowfullscreen style=\'width:100%;aspect-ratio:16/9;border:none;border-radius:12px\'></iframe>'">
+          <img src="https://vumbnail.com/1136540306.jpg" alt="ReadyPod at the Disaster Expo" loading="lazy">
+          <div class="rp-play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+        </div>
       </div>
       <div class="rp-split-content">
         <h2>Disaster Expo Video</h2>
@@ -389,7 +432,10 @@
     <!-- ============ 3. READYPOD IN ACTION VIDEO ============ -->
     <section class="rp-split-row">
       <div class="rp-split-media">
-        <iframe src="https://player.vimeo.com/video/1136540306?badge=0&autopause=0&player_id=0&app_id=58479" title="ReadyPod in Action" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <div class="rp-video-thumb" onclick="this.innerHTML='<iframe src=\'https://player.vimeo.com/video/1131403254?badge=0&amp;autopause=0&amp;autoplay=1\' title=\'ReadyPod in Action\' allow=\'autoplay; fullscreen; picture-in-picture\' allowfullscreen style=\'width:100%;aspect-ratio:16/9;border:none;border-radius:12px\'></iframe>'">
+          <img src="https://vumbnail.com/1131403254.jpg" alt="ReadyPod in Action" loading="lazy">
+          <div class="rp-play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+        </div>
       </div>
       <div class="rp-split-content">
         <h2>ReadyPod in Action</h2>
