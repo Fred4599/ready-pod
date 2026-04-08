@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capabilities | ReadyPod</title>
+  <script src="rp-head-assets.js"></script>
+  <script src="site-nav.js" defer></script>
+  <style>
+    :root {
+      --rp-bg: #ffffff;
+      --rp-text: #1b1b1b;
+      --rp-muted: #f8f8f8;
+      --rp-accent: #db6527;
+      --rp-line: #e8e8e8;
+      --rp-dark: #0f0f0f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--rp-text);
+      background: var(--rp-bg);
+    }
+
+    /* ── Hero ── */
+    .rp-hero {
+      min-height: 52vh;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+    }
+
+    .rp-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.74), rgba(0,0,0,0.32));
+      z-index: 1;
+    }
+
+    .rp-hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .rp-hero-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 740px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.42), rgba(0,0,0,0.12));
+      border-radius: 14px;
+      padding: 26px 30px;
+    }
+
+    .rp-hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: 1.03;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      color: #fff !important;
+    }
+
+    .rp-subtitle {
+      margin: 0;
+      font-size: clamp(18px, 2.2vw, 30px);
+      line-height: 1.35;
+      color: rgba(255,255,255,0.94);
+      max-width: 34ch;
+    }
+
+    .rp-container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .rp-section {
+      padding: 72px 24px;
+    }
+
+    /* ── Tile Grid ── */
+    .rp-tile-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .rp-tile {
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--rp-line);
+      transition: box-shadow .25s ease, transform .25s ease;
+    }
+
+    .rp-tile:hover {
+      box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+      transform: translateY(-3px);
+    }
+
+    .rp-tile-header {
+      padding: 20px 22px 0;
+    }
+
+    .rp-tile-header h3 {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.25;
+      color: var(--rp-accent);
+    }
+
+    .rp-tile-video {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      cursor: pointer;
+      overflow: hidden;
+      margin: 14px 22px 0;
+      border-radius: 12px;
+    }
+
+    .rp-tile-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .rp-play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.30);
+      transition: background .2s ease;
+      z-index: 2;
+    }
+
+    .rp-play-btn::after {
+      content: "";
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(219,101,39,0.92);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpolygon points='9.5,7 9.5,17 17,12'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 24px;
+      transition: transform .2s ease, background-color .2s ease;
+    }
+
+    .rp-tile-video:hover .rp-play-btn { background: rgba(0,0,0,0.18); }
+    .rp-tile-video:hover .rp-play-btn::after { transform: scale(1.1); background-color: var(--rp-accent); }
+
+    .rp-tile-video.playing .rp-play-btn { opacity: 0; pointer-events: none; }
+
+    .rp-tile-body {
+      padding: 16px 22px 22px;
+    }
+
+    .rp-tile-body p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.65;
+      color: #555;
+    }
+
+    /* ── Bottom CTA Grid ── */
+    .rp-action-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .rp-action-link {
+      display: flex;
+      min-height: 320px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-decoration: none;
+      align-items: flex-end;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .rp-action-link::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.75));
+      transition: background .2s ease;
+    }
+
+    .rp-action-link:hover::before { background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(219,101,39,0.85)); }
+    .rp-action-link:hover,
+    .rp-action-link:hover span { color: #fff !important; }
+
+    .rp-action-link span {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      font-size: 28px;
+      line-height: 1.15;
+      font-weight: 700;
+    }
+
+    /* ── Footer ── */
+    .rp-footer {
+      background: var(--rp-dark);
+      color: #f0f0f0;
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .rp-footer a { color: #fff; text-decoration: none; font-weight: 700; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .rp-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 900px) {
+      .rp-action-grid { grid-template-columns: 1fr; }
+      .rp-action-link { min-height: 280px; }
+      .rp-hero-copy { max-width: 100%; padding: 18px; background: linear-gradient(90deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2)); }
+    }
+
+    @media (max-width: 640px) {
+      .rp-tile-grid { grid-template-columns: 1fr; }
+      .rp-section { padding: 48px 16px; }
+    }
+  </style>
+</head>
+<body class="wp-theme-salient material" data-header-format="default" data-header-resize="0" data-full-width-header="true" data-header-search="false" data-slide-out-widget-area="true" data-slide-out-widget-area-style="slide-out-from-right" data-transparent-header="false" data-header-color="light" data-dropdown-style="minimal">
+  <rp-site-nav current-page="capabilities"></rp-site-nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="rp-hero" style="padding: 0 24px;">
+      <img class="rp-hero-image" src="https://www.readypod.com/wp-content/uploads/2025/07/container.jpg" alt="ReadyPod shipping container with modular homes">
+      <div class="rp-container">
+        <div class="rp-hero-copy">
+          <h1>Capabilities</h1>
+          <p class="rp-subtitle">Engineered for speed, durability, and independence -- ReadyPod delivers housing that performs where it matters most.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capability Tiles -->
+    <section class="rp-section">
+      <div class="rp-container">
+        <div class="rp-tile-grid">
+
+          <!-- 1. Efficient to Transport -->
+          <div class="rp-tile">
+            <div class="rp-tile-header"><h3>Efficient to Transport</h3></div>
+            <div class="rp-tile-video" onclick="togglePlay(this)">
+              <video preload="metadata" muted playsinline poster="https://www.readypod.com/wp-content/uploads/2025/07/container.jpg">
+                <source src="https://www.readypod.com/wp-content/uploads/2025/07/move.mp4" type="video/mp4">
+              </video>
+              <div class="rp-play-btn"></div>
+            </div>
+            <div class="rp-tile-body">
+              <p>Two homes fit into a single 40-foot shipping container, making it easy to ship and mobilize at a moment's notice -- by truck, rail, or ship.</p>
+            </div>
+          </div>
+
+          <!-- 2. Protected & Safe -->
+          <div class="rp-tile">
+            <div class="rp-tile-header"><h3>Protected &amp; Safe</h3></div>
+            <div class="rp-tile-video" onclick="togglePlay(this)">
+              <video preload="metadata" muted playsinline poster="https://www.readypod.com/wp-content/uploads/2025/07/safe.jpg">
+                <source src="https://www.readypod.com/wp-content/uploads/2025/07/cont2.mp4" type="video/mp4">
+              </video>
+              <div class="rp-play-btn"></div>
+            </div>
+            <div class="rp-tile-body">
+              <p>In their container, BoxHouses are shielded from the elements, preventing exposure to moisture, mold, rust, and other hazards that can compromise health and structural integrity until ready for use.</p>
+            </div>
+          </div>
+
+          <!-- 3. Rapid Deployments & Redeployments (combined) -->
+          <div class="rp-tile">
+            <div class="rp-tile-header"><h3>Rapid Deployments &amp; Redeployments</h3></div>
+            <div class="rp-tile-video" onclick="togglePlay(this)">
+              <video preload="metadata" muted playsinline poster="https://www.readypod.com/wp-content/uploads/2025/07/mobile.jpg">
+                <source src="https://www.readypod.com/wp-content/uploads/2025/07/setup.mp4" type="video/mp4">
+              </video>
+              <div class="rp-play-btn"></div>
+            </div>
+            <div class="rp-tile-body">
+              <p>BoxHouses are foldable, steel-framed homes that do not require a foundation, making them ideal for all kinds of terrain. When no longer needed, a BoxHouse can be folded back up and redeployed to the next site.</p>
+            </div>
+          </div>
+
+          <!-- 4. Quick Setup -->
+          <div class="rp-tile">
+            <div class="rp-tile-header"><h3>Quick Setup</h3></div>
+            <div class="rp-tile-video" onclick="togglePlay(this)">
+              <video preload="metadata" muted playsinline poster="https://www.readypod.com/wp-content/uploads/2025/10/setup.jpg">
+                <source src="https://www.readypod.com/wp-content/uploads/2025/10/setup.mp4" type="video/mp4">
+              </video>
+              <div class="rp-play-btn"></div>
+            </div>
+            <div class="rp-tile-body">
+              <p>Our patented design makes a BoxHouse move-in ready in a matter of hours.</p>
+            </div>
+          </div>
+
+          <!-- 5. Built to Last -->
+          <div class="rp-tile">
+            <div class="rp-tile-header"><h3>Built to Last</h3></div>
+            <div class="rp-tile-video" onclick="togglePlay(this)">
+              <video preload="metadata" muted playsinline poster="https://www.readypod.com/wp-content/uploads/2025/07/strong.jpg">
+                <source src="https://www.readypod.com/wp-content/uploads/2025/07/odessa2.mp4" type="video/mp4">
+              </video>
+              <div class="rp-play-btn"></div>
+            </div>
+            <div class="rp-tile-body">
+              <p>Constructed with high-quality, durable materials, BoxHouses are stronger and more rugged than traditional or manufactured housing -- engineered to endure extreme environments.</p>
+            </div>
+          </div>
+
+          <!-- 6. Off-Grid Options -->
+          <div class="rp-tile">
+            <div class="rp-tile-header"><h3>Off-Grid Options</h3></div>
+            <div class="rp-tile-video" onclick="togglePlay(this)">
+              <video preload="metadata" muted playsinline poster="https://www.readypod.com/wp-content/uploads/2025/10/solar.jpg">
+                <source src="https://www.readypod.com/wp-content/uploads/2025/10/solar2.mp4" type="video/mp4">
+              </video>
+              <div class="rp-play-btn"></div>
+            </div>
+            <div class="rp-tile-body">
+              <p>ReadyPod units can operate completely off-grid with integrated solar and battery systems, providing reliable power anywhere it's needed. Each unit can be equipped with rooftop solar panels and energy storage, allowing lights, appliances, HVAC, and communications to function independently of the grid.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="rp-section" style="background: var(--rp-muted);">
+      <div class="rp-container">
+        <div class="rp-action-grid">
+          <a class="rp-action-link" href="products.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/bungalow-bed-2.jpg');"><span>Products</span></a>
+          <a class="rp-action-link" href="capabilities.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/container.jpg');"><span>Capabilities</span></a>
+          <a class="rp-action-link" href="deployment-models.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/mobile.jpg');"><span>Deployments</span></a>
+          <a class="rp-action-link" href="contact-us.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/camp.jpg');"><span>Contact Us</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rp-footer">
+    &copy; 2026 ReadyPod. <a href="contact-us.html">Contact ReadyPod</a>.
+  </footer>
+
+  <script>
+    function togglePlay(wrapper) {
+      const video = wrapper.querySelector('video');
+      if (video.paused) {
+        // Pause all other videos first
+        document.querySelectorAll('.rp-tile-video video').forEach(v => {
+          if (v !== video) {
+            v.pause();
+            v.parentElement.classList.remove('playing');
+          }
+        });
+        video.play();
+        wrapper.classList.add('playing');
+      } else {
+        video.pause();
+        wrapper.classList.remove('playing');
+      }
+    }
+  </script>
+</body>
+</html>

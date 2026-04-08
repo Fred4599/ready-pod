@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | ReadyPod</title>
+  <script src="rp-head-assets.js"></script>
+  <script src="site-nav.js" defer></script>
+  <style>
+    :root {
+      --rp-bg: #ffffff;
+      --rp-text: #1b1b1b;
+      --rp-muted: #f8f8f8;
+      --rp-accent: #db6527;
+      --rp-line: #e8e8e8;
+      --rp-dark: #0f0f0f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--rp-text);
+      background: var(--rp-bg);
+    }
+
+    .rp-page { width: 100%; }
+
+    .rp-section { padding: 72px 24px; }
+
+    .rp-container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    .rp-hero {
+      min-height: 40vh;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+    }
+
+    .rp-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.74), rgba(0,0,0,0.32));
+      z-index: 1;
+    }
+
+    .rp-hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .rp-hero-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 740px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.42), rgba(0,0,0,0.12));
+      border-radius: 14px;
+      padding: 26px 30px;
+    }
+
+    .rp-hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: 1.03;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      color: #fff !important;
+    }
+
+    .rp-subtitle {
+      margin: 0;
+      font-size: clamp(18px, 2.2vw, 28px);
+      line-height: 1.35;
+      color: rgba(255,255,255,0.94);
+      max-width: 38ch;
+    }
+
+    /* Form section */
+    .rp-form-section {
+      padding: 64px 24px;
+    }
+
+    .rp-form-container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .rp-form-intro {
+      margin-bottom: 36px;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #3a3a3a;
+    }
+
+    .rp-form-heading {
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--rp-accent);
+      margin: 40px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--rp-line);
+    }
+
+    .rp-form-heading:first-of-type {
+      margin-top: 0;
+    }
+
+    .rp-field {
+      margin-bottom: 22px;
+    }
+
+    .rp-field label {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--rp-text);
+    }
+
+    .rp-field label .rp-required {
+      color: #c0392b;
+      margin-left: 2px;
+    }
+
+    .rp-field input[type="text"],
+    .rp-field input[type="email"],
+    .rp-field input[type="tel"],
+    .rp-field input[type="number"],
+    .rp-field input[type="date"],
+    .rp-field select,
+    .rp-field textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--rp-text);
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .rp-field input:focus,
+    .rp-field select:focus,
+    .rp-field textarea:focus {
+      outline: none;
+      border-color: var(--rp-accent);
+      box-shadow: 0 0 0 3px rgba(219,101,39,0.15);
+    }
+
+    .rp-field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .rp-field select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    /* Address grid */
+    .rp-address-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .rp-address-grid .rp-address-full {
+      grid-column: 1 / -1;
+    }
+
+    .rp-address-grid label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    /* Radio + checkbox groups */
+    .rp-radio-group,
+    .rp-checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 4px;
+    }
+
+    .rp-radio-group label,
+    .rp-checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .rp-radio-group input,
+    .rp-checkbox-group input {
+      accent-color: var(--rp-accent);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    /* Conditional field */
+    .rp-conditional {
+      display: none;
+      margin-top: 14px;
+    }
+
+    .rp-conditional.visible {
+      display: block;
+    }
+
+    /* Submit */
+    .rp-submit-btn {
+      display: inline-block;
+      margin-top: 32px;
+      padding: 16px 40px;
+      border: none;
+      border-radius: 999px;
+      background: var(--rp-accent);
+      color: #fff;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(219,101,39,0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .rp-submit-btn:hover {
+      transform: translateY(-2px);
+      background: #c75720;
+      box-shadow: 0 14px 28px rgba(219,101,39,0.42);
+    }
+
+    /* Success message */
+    .rp-success {
+      display: none;
+      text-align: center;
+      padding: 60px 24px;
+    }
+
+    .rp-success.visible {
+      display: block;
+    }
+
+    .rp-success h2 {
+      font-size: 32px;
+      color: var(--rp-accent);
+      margin: 0 0 12px;
+    }
+
+    .rp-success p {
+      font-size: 18px;
+      color: #3a3a3a;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .rp-footer {
+      background: var(--rp-dark);
+      color: #f0f0f0;
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .rp-footer a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (max-width: 640px) {
+      .rp-hero-copy { padding: 18px; }
+      .rp-form-section { padding: 40px 18px; }
+      .rp-address-grid { grid-template-columns: 1fr; }
+      .rp-address-grid .rp-address-full { grid-column: 1; }
+    }
+  </style>
+</head>
+<body class="wp-theme-salient material" data-header-format="default" data-header-resize="0" data-full-width-header="true" data-header-search="false" data-slide-out-widget-area="true" data-slide-out-widget-area-style="slide-out-from-right" data-transparent-header="false" data-header-color="light" data-dropdown-style="minimal">
+  <rp-site-nav current-page="contact"></rp-site-nav>
+
+  <main class="rp-page">
+    <section class="rp-section rp-hero">
+      <img class="rp-hero-image" src="https://www.readypod.com/wp-content/uploads/2025/07/bungalow-1920.jpg" alt="ReadyPod housing">
+      <div class="rp-container">
+        <div class="rp-hero-copy">
+          <h1>Contact Us</h1>
+          <p class="rp-subtitle">Tell us more about your goals and requirements, and a member of our team will follow up promptly.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="rp-form-section">
+      <div class="rp-form-container">
+        <p class="rp-form-intro">
+          ReadyPod provides durable, rapidly deployable housing for disaster response, community housing, and preparedness planning. Fill out the form below and our team will be in touch.
+        </p>
+
+        <!-- Success message (shown after submit) -->
+        <div class="rp-success" id="formSuccess">
+          <h2>Thank You!</h2>
+          <p>Your inquiry has been submitted. A member of our team will follow up with you promptly.</p>
+        </div>
+
+        <form id="contactForm" action="https://www.readypod.com/lease-inquiry/" method="GET">
+          <div class="rp-form-heading">Your Information</div>
+
+          <div class="rp-field">
+            <label>Name <span class="rp-required">*</span></label>
+            <input type="text" name="name" placeholder="First Last" required>
+          </div>
+
+          <div class="rp-field">
+            <label>Email <span class="rp-required">*</span></label>
+            <input type="email" name="email" required>
+          </div>
+
+          <div class="rp-field">
+            <label>Phone <span class="rp-required">*</span></label>
+            <input type="tel" name="phone" placeholder="(999) 999-9999" required>
+          </div>
+
+          <div class="rp-field">
+            <label>Address</label>
+            <div class="rp-address-grid">
+              <div class="rp-address-full">
+                <label>Street Address</label>
+                <input type="text" name="street">
+              </div>
+              <div class="rp-address-full">
+                <label>Address Line 2</label>
+                <input type="text" name="street2">
+              </div>
+              <div>
+                <label>City</label>
+                <input type="text" name="city">
+              </div>
+              <div>
+                <label>State / Province</label>
+                <input type="text" name="state">
+              </div>
+              <div>
+                <label>ZIP / Postal Code</label>
+                <input type="text" name="zip">
+              </div>
+              <div>
+                <label>Country</label>
+                <select name="country">
+                  <option value="">Select Country</option>
+                  <option value="US" selected>United States</option>
+                  <option value="CA">Canada</option>
+                  <option value="MX">Mexico</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="AU">Australia</option>
+                  <option value="DE">Germany</option>
+                  <option value="FR">France</option>
+                  <option value="JP">Japan</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="rp-form-heading">Additional Information</div>
+
+          <div class="rp-field">
+            <label>Are you working with a Dealer? <span class="rp-required">*</span></label>
+            <div class="rp-radio-group">
+              <label><input type="radio" name="dealer" value="Yes" required> Yes</label>
+              <label><input type="radio" name="dealer" value="No"> No</label>
+            </div>
+            <div class="rp-conditional" id="dealerNameField">
+              <label>Dealer Name <span class="rp-required">*</span></label>
+              <input type="text" name="dealer_name" id="dealerNameInput">
+            </div>
+          </div>
+
+          <div class="rp-field">
+            <label>What models are you interested in? <span class="rp-required">*</span></label>
+            <div class="rp-checkbox-group">
+              <label><input type="checkbox" name="models" value="MiniBox"> MiniBox</label>
+              <label><input type="checkbox" name="models" value="Bungalow"> Bungalow</label>
+              <label><input type="checkbox" name="models" value="Duplex"> Duplex</label>
+            </div>
+          </div>
+
+          <div class="rp-field">
+            <label>How many units are you interested in? <span class="rp-required">*</span></label>
+            <input type="number" name="quantity" min="1" required>
+          </div>
+
+          <div class="rp-field">
+            <label>Deadline to receive units <span class="rp-required">*</span></label>
+            <input type="date" name="deadline" required>
+          </div>
+
+          <div class="rp-field">
+            <label>How did you hear about us?</label>
+            <select name="referral">
+              <option value="">Select one</option>
+              <option value="Google Search">Google Search</option>
+              <option value="Social Media">Social Media</option>
+              <option value="Referral">Referral</option>
+              <option value="Trade Show">Trade Show</option>
+              <option value="News Article">News Article</option>
+              <option value="Government/Agency">Government / Agency</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="rp-field">
+            <label>Intended use and any additional information</label>
+            <textarea name="message" placeholder="Tell us about your project, timeline, and any specific requirements..."></textarea>
+          </div>
+
+          <button type="submit" class="rp-submit-btn">Submit Inquiry</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rp-footer">
+    &copy; 2026 ReadyPod.
+  </footer>
+
+  <script>
+    // Dealer conditional field toggle
+    document.querySelectorAll('input[name="dealer"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const dealerField = document.getElementById('dealerNameField');
+        const dealerInput = document.getElementById('dealerNameInput');
+        if (radio.value === 'Yes' && radio.checked) {
+          dealerField.classList.add('visible');
+          dealerInput.required = true;
+        } else {
+          dealerField.classList.remove('visible');
+          dealerInput.required = false;
+          dealerInput.value = '';
+        }
+      });
+    });
+
+    // Phone formatting
+    const phoneInput = document.querySelector('input[name="phone"]');
+    phoneInput.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, '');
+      if (val.length > 10) val = val.slice(0, 10);
+      if (val.length >= 6) {
+        val = `(${val.slice(0,3)}) ${val.slice(3,6)}-${val.slice(6)}`;
+      } else if (val.length >= 3) {
+        val = `(${val.slice(0,3)}) ${val.slice(3)}`;
+      }
+      e.target.value = val;
+    });
+
+    // Form submission — redirect to ReadyPod's real form page
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      // For now, redirect to the live ReadyPod inquiry page
+      window.location.href = 'https://www.readypod.com/lease-inquiry/';
+    });
+  </script>
+</body>
+</html>

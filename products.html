@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReadyPod Products</title>
+  <script src="rp-head-assets.js"></script>
+  <script src="site-nav.js" defer></script>
+  <style>
+    :root {
+      --rp-bg: #ffffff;
+      --rp-text: #1b1b1b;
+      --rp-muted: #f8f8f8;
+      --rp-accent: #db6527;
+      --rp-line: #e8e8e8;
+      --rp-dark: #0f0f0f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--rp-text);
+      background: var(--rp-bg);
+    }
+
+    .rp-page {
+      width: 100%;
+    }
+
+    .rp-section {
+      padding: 72px 24px;
+    }
+
+    .rp-container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .rp-hero {
+      min-height: 52vh;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+    }
+
+    .rp-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.32));
+      z-index: 1;
+    }
+
+    .rp-hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .rp-hero-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 740px;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.12));
+      border-radius: 14px;
+      padding: 26px 30px;
+    }
+
+    .rp-hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: 1.03;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      color: #fff !important;
+    }
+
+    .rp-subtitle {
+      margin: 0;
+      font-size: clamp(18px, 2.2vw, 30px);
+      line-height: 1.35;
+      color: rgba(255, 255, 255, 0.94);
+      max-width: 34ch;
+    }
+
+    .rp-hero-cta {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 14px 26px;
+      border-radius: 999px;
+      background: #db6527;
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid #db6527;
+      box-shadow: 0 10px 24px rgba(219,101,39,0.35);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      animation: rpPulse 2.4s ease-in-out infinite;
+    }
+
+    .rp-hero-cta:hover {
+      transform: translateY(-2px);
+      background: #c75720;
+      box-shadow: 0 14px 28px rgba(219,101,39,0.42);
+    }
+
+    @keyframes rpPulse {
+      0%, 100% { box-shadow: 0 10px 24px rgba(219,101,39,0.35); }
+      50% { box-shadow: 0 10px 32px rgba(219,101,39,0.55); }
+    }
+
+    .rp-muted {
+      background: var(--rp-muted);
+    }
+
+    .rp-intro {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .rp-intro h2 {
+      margin: 0 0 12px;
+      color: var(--rp-accent);
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.15;
+    }
+
+    .rp-intro p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .rp-chip-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .rp-chip {
+      border: 1px solid #e5ddd8;
+      background: #fff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #5a4033;
+    }
+
+    /* Product overview row */
+    .rp-product-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      min-height: 480px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 60px 40px;
+      gap: 40px;
+    }
+
+    .rp-product-row.reverse {
+      direction: rtl;
+    }
+
+    .rp-product-row.reverse > * {
+      direction: ltr;
+    }
+
+    .rp-product-photo {
+      overflow: hidden;
+      height: 100%;
+      border-radius: 12px;
+    }
+
+    .rp-product-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .rp-product-info {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .rp-product-diagram {
+      max-width: 340px;
+      margin-bottom: 8px;
+    }
+
+    .rp-product-info h2 {
+      margin: 0;
+      font-size: clamp(32px, 4.5vw, 52px);
+      line-height: 1.1;
+      color: #222;
+    }
+
+    .rp-product-info p {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #3a3a3a;
+      max-width: 480px;
+    }
+
+    /* Divider bar between sections */
+    .rp-divider-bar {
+      height: 20px;
+      background: #58676E;
+    }
+
+    /* Specs + gallery row */
+    .rp-specs-band {
+      background: #efefef;
+    }
+
+    .rp-specs-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 48px 40px;
+      gap: 40px;
+    }
+
+    .rp-specs-body {
+      padding: 0;
+    }
+
+    .rp-specs-title {
+      margin: 0 0 20px;
+      font-size: 22px;
+      font-weight: 800;
+      color: #222;
+    }
+
+    .rp-specs {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #2f2f2f;
+    }
+
+    .rp-specs li::marker {
+      color: var(--rp-accent);
+    }
+
+    /* Gallery slider */
+    .rp-gallery-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+      min-height: 500px;
+      border-radius: 12px;
+    }
+
+    .rp-gallery-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.4s ease;
+    }
+
+    .rp-gallery-track img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .rp-gallery-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      border: none;
+      width: 44px;
+      height: 44px;
+      font-size: 22px;
+      cursor: pointer;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: background 0.2s;
+    }
+
+    .rp-gallery-btn:hover {
+      background: rgba(0,0,0,0.7);
+    }
+
+    .rp-gallery-btn.prev { left: 12px; }
+    .rp-gallery-btn.next { right: 12px; }
+
+    .rp-gallery-counter {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 13px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      z-index: 2;
+    }
+
+    .rp-footer {
+      background: var(--rp-dark);
+      color: #f0f0f0;
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .rp-footer a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (max-width: 980px) {
+      .rp-intro {
+        grid-template-columns: 1fr;
+      }
+
+      .rp-product-row,
+      .rp-specs-row {
+        grid-template-columns: 1fr;
+      }
+
+      .rp-product-row.reverse {
+        direction: ltr;
+      }
+
+      .rp-product-photo {
+        min-height: 300px;
+      }
+
+      .rp-chip-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .rp-gallery-wrap {
+        min-height: 350px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .rp-topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .rp-hero-copy {
+        padding: 18px;
+      }
+
+      .rp-product-row,
+      .rp-specs-row {
+        padding: 28px 18px;
+        gap: 20px;
+      }
+
+      .rp-product-info {
+        padding: 0;
+      }
+
+      .rp-chip-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="wp-theme-salient material" data-header-format="default" data-header-resize="0" data-full-width-header="true" data-header-search="false" data-slide-out-widget-area="true" data-slide-out-widget-area-style="slide-out-from-right" data-transparent-header="false" data-header-color="light" data-dropdown-style="minimal">
+  <rp-site-nav current-page="products"></rp-site-nav>
+
+  <main class="rp-page">
+    <section class="rp-section rp-hero">
+      <img class="rp-hero-image" src="https://www.readypod.com/wp-content/uploads/2025/07/bungalow-1920.jpg" alt="ReadyPod product line">
+      <div class="rp-container">
+        <div class="rp-hero-copy">
+          <h1>Products</h1>
+          <p class="rp-subtitle">Explore the ReadyPod housing models built for rapid deployment, comfort, and durability.</p>
+          <a class="rp-hero-cta" href="contact-us.html">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE DUPLEX ============ -->
+    <section class="rp-product-row">
+      <div class="rp-product-photo">
+        <img src="https://www.readypod.com/wp-content/uploads/2026/03/dup-no-plant.jpg" alt="The Duplex exterior">
+      </div>
+      <div class="rp-product-info">
+        <img class="rp-product-diagram" src="https://www.readypod.com/wp-content/uploads/2026/03/duplextrans.png" alt="Duplex diagram">
+        <h2>The Duplex</h2>
+        <p>Specifically designed for efficiency, the Duplex is divided into two equal units, each with its private entrance, fully equipped kitchen, cozy bedroom, and modern bathroom.</p>
+      </div>
+    </section>
+
+    <div class="rp-specs-band">
+      <div class="rp-specs-row">
+        <div class="rp-specs-body">
+          <h3 class="rp-specs-title">Duplex Specs</h3>
+          <ul class="rp-specs">
+            <li>Dimensions 19' X 20'</li>
+            <li>190 sq ft of Living Space Per Side</li>
+            <li>2 Private Entrances, Kitchens, and Bathrooms</li>
+            <li>Roof: Aluminum/Steel</li>
+            <li>Insulation Type: Composite EPS/PET/XPS</li>
+            <li>Wall Material: Fiberglass/XPS</li>
+            <li>Total Power Supply 60A</li>
+            <li>Flooring: LVP &ndash; Natural Rustik, White, Gregio Notte</li>
+            <li>Lighting: LED</li>
+            <li>Electrical: Pre-wired</li>
+            <li>Plumbing: PVC/PEX</li>
+          </ul>
+        </div>
+        <div class="rp-gallery-wrap" data-gallery="duplex">
+          <div class="rp-gallery-track">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/d1.jpg" alt="Duplex interior 1">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/d2.jpg" alt="Duplex interior 2">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/d3.jpg" alt="Duplex interior 3">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/d4.jpg" alt="Duplex interior 4">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/d5.jpg" alt="Duplex interior 5">
+          </div>
+          <button class="rp-gallery-btn prev" aria-label="Previous">&lsaquo;</button>
+          <button class="rp-gallery-btn next" aria-label="Next">&rsaquo;</button>
+          <div class="rp-gallery-counter">1 / 5</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rp-divider-bar"></div>
+
+    <!-- ============ THE MINI ============ -->
+    <section class="rp-product-row reverse">
+      <div class="rp-product-photo">
+        <img src="https://www.readypod.com/wp-content/uploads/2026/03/mini-web.jpg" alt="The Mini exterior">
+      </div>
+      <div class="rp-product-info">
+        <img class="rp-product-diagram" src="https://www.readypod.com/wp-content/uploads/2026/03/minitrans.png" alt="Mini diagram">
+        <h2>The Mini</h2>
+        <p>Our most practical design is intended to provide the essential necessities in the event of a disaster. With a washer/dryer and compact kitchen, the mini can be configured to accommodate anyone.</p>
+      </div>
+    </section>
+
+    <div class="rp-specs-band">
+      <div class="rp-specs-row">
+        <div class="rp-specs-body">
+          <h3 class="rp-specs-title">Mini Specs</h3>
+          <ul class="rp-specs">
+            <li>Dimensions 12' X 16'</li>
+            <li>192 sq ft of Living Space</li>
+            <li>Kitchen and Bathroom</li>
+            <li>Roof: Aluminum/Steel</li>
+            <li>Insulation Type: Composite EPS/PET/XPS</li>
+            <li>Wall Material: Fiberglass/XPS</li>
+            <li>Total Power Supply 60A</li>
+            <li>Flooring: LVP &ndash; Natural Rustik, White, Gregio Notte</li>
+            <li>Lighting: LED</li>
+            <li>Electrical: Pre-wired</li>
+            <li>Plumbing: PVC/PEX</li>
+          </ul>
+        </div>
+        <div class="rp-gallery-wrap" data-gallery="mini">
+          <div class="rp-gallery-track">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/d1.jpg" alt="Mini interior 1">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/d2.jpg" alt="Mini interior 2">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/d3.jpg" alt="Mini interior 3">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/d4.jpg" alt="Mini interior 4">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/d5.jpg" alt="Mini interior 5">
+          </div>
+          <button class="rp-gallery-btn prev" aria-label="Previous">&lsaquo;</button>
+          <button class="rp-gallery-btn next" aria-label="Next">&rsaquo;</button>
+          <div class="rp-gallery-counter">1 / 5</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rp-divider-bar"></div>
+
+    <!-- ============ THE BUNGALOW ============ -->
+    <section class="rp-product-row">
+      <div class="rp-product-photo">
+        <img src="https://www.readypod.com/wp-content/uploads/2026/03/bungalow-web.jpg" alt="The Bungalow exterior">
+      </div>
+      <div class="rp-product-info">
+        <img class="rp-product-diagram" src="https://www.readypod.com/wp-content/uploads/2026/03/bunggrey.png" alt="Bungalow diagram">
+        <h2>The Bungalow</h2>
+        <p>A modern dwelling designed to make the most of its living space. With a washer/dryer and full-size kitchen, the studio can be configured to accommodate families in a safe and comfortable environment.</p>
+      </div>
+    </section>
+
+    <div class="rp-specs-band">
+      <div class="rp-specs-row">
+        <div class="rp-specs-body">
+          <h3 class="rp-specs-title">Bungalow Specs</h3>
+          <ul class="rp-specs">
+            <li>Dimensions 19' X 20'</li>
+            <li>380 sq ft of Living Space</li>
+            <li>Roof: Aluminum/Steel</li>
+            <li>Insulation Type: Composite EPS/PET/XPS</li>
+            <li>Wall Material: Fiberglass/XPS</li>
+            <li>Total Power Supply 60A</li>
+            <li>Flooring: LVP &ndash; Natural Rustik, White, Gregio Notte</li>
+            <li>Lighting: LED</li>
+            <li>Electrical: Pre-wired</li>
+            <li>Plumbing: PVC/PEX</li>
+          </ul>
+        </div>
+        <div class="rp-gallery-wrap" data-gallery="bungalow">
+          <div class="rp-gallery-track">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/bungalow-bed-2.jpg" alt="Bungalow bedroom">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/bungalow-1920.jpg" alt="Bungalow exterior">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/bungalow-bed-3.jpg" alt="Bungalow bedroom alternate">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/bungalow-couch-2.jpg" alt="Bungalow lounge area">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/bungalow-couch-1.jpg" alt="Bungalow lounge alternate">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/bungalow-kitchen-3.jpg" alt="Bungalow kitchen">
+            <img src="https://www.readypod.com/wp-content/uploads/2025/07/bungalow-den.jpg" alt="Bungalow den">
+          </div>
+          <button class="rp-gallery-btn prev" aria-label="Previous">&lsaquo;</button>
+          <button class="rp-gallery-btn next" aria-label="Next">&rsaquo;</button>
+          <div class="rp-gallery-counter">1 / 7</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.rp-gallery-wrap').forEach(wrap => {
+      const track = wrap.querySelector('.rp-gallery-track');
+      const imgs = track.querySelectorAll('img');
+      const counter = wrap.querySelector('.rp-gallery-counter');
+      const total = imgs.length;
+      let idx = 0;
+
+      function go(i) {
+        idx = (i + total) % total;
+        track.style.transform = `translateX(-${idx * 100}%)`;
+        counter.textContent = `${idx + 1} / ${total}`;
+      }
+
+      wrap.querySelector('.prev').addEventListener('click', () => go(idx - 1));
+      wrap.querySelector('.next').addEventListener('click', () => go(idx + 1));
+    });
+  </script>
+
+  <footer class="rp-footer">
+    Ready to talk through your deployment needs? <a href="contact-us.html">Contact ReadyPod</a>.
+  </footer>
+</body>
+</html>

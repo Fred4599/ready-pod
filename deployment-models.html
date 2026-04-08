@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deployment Models | ReadyPod</title>
+  <script src="rp-head-assets.js"></script>
+  <script src="site-nav.js" defer></script>
+  <style>
+    :root {
+      --rp-bg: #ffffff;
+      --rp-text: #1b1b1b;
+      --rp-muted: #f8f8f8;
+      --rp-accent: #db6527;
+      --rp-line: #e8e8e8;
+      --rp-dark: #0f0f0f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--rp-text);
+      background: var(--rp-bg);
+    }
+
+    /* ── Hero ── */
+    .rp-hero {
+      min-height: 52vh;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+    }
+
+    .rp-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.74), rgba(0,0,0,0.32));
+      z-index: 1;
+    }
+
+    .rp-hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .rp-hero-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 740px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.42), rgba(0,0,0,0.12));
+      border-radius: 14px;
+      padding: 26px 30px;
+    }
+
+    .rp-hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: 1.03;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      color: #fff !important;
+    }
+
+    .rp-subtitle {
+      margin: 0;
+      font-size: clamp(18px, 2.2vw, 30px);
+      line-height: 1.35;
+      color: rgba(255,255,255,0.94);
+      max-width: 38ch;
+    }
+
+    .rp-container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .rp-section {
+      padding: 72px 24px;
+    }
+
+    /* ── Intro ── */
+    .rp-intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 56px;
+    }
+
+    .rp-intro p {
+      font-size: 25px;
+      line-height: 1.7;
+      color: #444;
+      margin: 0;
+    }
+
+    /* ── Deployment Cards ── */
+    .rp-deploy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 32px;
+    }
+
+    .rp-deploy-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--rp-line);
+      transition: box-shadow .25s ease, transform .25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rp-deploy-card:hover {
+      box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+      transform: translateY(-3px);
+    }
+
+    .rp-deploy-card-img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+    }
+
+    .rp-deploy-card-body {
+      padding: 24px 26px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rp-deploy-card-body h3 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      line-height: 1.25;
+      color: var(--rp-accent);
+    }
+
+    .rp-deploy-card-body .rp-tagline {
+      margin: 0 0 14px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--rp-text);
+      font-style: italic;
+    }
+
+    .rp-deploy-card-body p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.65;
+      color: #555;
+    }
+
+    /* ── Bottom CTA Grid ── */
+    .rp-action-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .rp-action-link {
+      display: flex;
+      min-height: 320px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-decoration: none;
+      align-items: flex-end;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .rp-action-link::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.75));
+      transition: background .2s ease;
+    }
+
+    .rp-action-link:hover::before { background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(219,101,39,0.85)); }
+    .rp-action-link:hover,
+    .rp-action-link:hover span { color: #fff !important; }
+
+    .rp-action-link span {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      font-size: 28px;
+      line-height: 1.15;
+      font-weight: 700;
+    }
+
+    /* ── Footer ── */
+    .rp-footer {
+      background: var(--rp-dark);
+      color: #f0f0f0;
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .rp-footer a { color: #fff; text-decoration: none; font-weight: 700; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .rp-deploy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 900px) {
+      .rp-action-grid { grid-template-columns: 1fr; }
+      .rp-action-link { min-height: 280px; }
+      .rp-hero-copy { max-width: 100%; padding: 18px; background: linear-gradient(90deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2)); }
+    }
+
+    @media (max-width: 640px) {
+      .rp-deploy-grid { grid-template-columns: 1fr; }
+      .rp-section { padding: 48px 16px; }
+    }
+  </style>
+</head>
+<body class="wp-theme-salient material" data-header-format="default" data-header-resize="0" data-full-width-header="true" data-header-search="false" data-slide-out-widget-area="true" data-slide-out-widget-area-style="slide-out-from-right" data-transparent-header="false" data-header-color="light" data-dropdown-style="minimal">
+  <rp-site-nav current-page="deployments"></rp-site-nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="rp-hero" style="padding: 0 24px;">
+      <img class="rp-hero-image" src="https://www.readypod.com/wp-content/uploads/2025/07/mobile.jpg" alt="ReadyPod modular housing deployment">
+      <div class="rp-container">
+        <div class="rp-hero-copy">
+          <h1>Deployment Models</h1>
+          <p class="rp-subtitle">Configured to support a range of housing needs based on location, scale, and duration.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro + Deployment Cards -->
+    <section class="rp-section">
+      <div class="rp-container">
+        <div class="rp-intro">
+          <p>ReadyPod systems can be configured to support a range of housing needs based on location, scale, and duration.</p>
+        </div>
+
+        <div class="rp-deploy-grid">
+
+          <!-- 1. Community Housing -->
+          <div class="rp-deploy-card">
+            <img class="rp-deploy-card-img" src="https://www.readypod.com/wp-content/uploads/2025/07/camp.jpg" alt="Community housing village with ReadyPod units">
+            <div class="rp-deploy-card-body">
+              <h3>Community Housing</h3>
+              <p class="rp-tagline">Scale and efficiency for larger workforce and community needs.</p>
+              <p>Clusters of modular units arranged as housing villages with shared infrastructure. Ideal for larger workforce needs or community-based housing where scale and efficiency matter.</p>
+            </div>
+          </div>
+
+          <!-- 2. Individual Units -->
+          <div class="rp-deploy-card">
+            <img class="rp-deploy-card-img" src="https://www.readypod.com/wp-content/uploads/2025/07/bungalow-bed-2.jpg" alt="Individual ReadyPod unit on private land">
+            <div class="rp-deploy-card-body">
+              <h3>Individual Units</h3>
+              <p class="rp-tagline">Flexible housing at the point of need.</p>
+              <p>Standalone units are placed directly at the point of need, including private land, job sites, or individual properties. Provides flexible housing without requiring a centralized development.</p>
+            </div>
+          </div>
+
+          <!-- 3. Scalable Project-Based Housing -->
+          <div class="rp-deploy-card">
+            <img class="rp-deploy-card-img" src="https://www.readypod.com/wp-content/uploads/2025/07/container.jpg" alt="Scalable project-based ReadyPod housing">
+            <div class="rp-deploy-card-body">
+              <h3>Scalable Project-Based Housing</h3>
+              <p class="rp-tagline">Align housing capacity with project timelines.</p>
+              <p>Housing that can expand or contract as needs change over time. Allows organizations to align housing capacity with workforce levels or project timelines.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="rp-section" style="background: var(--rp-muted);">
+      <div class="rp-container">
+        <div class="rp-action-grid">
+          <a class="rp-action-link" href="products.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/bungalow-bed-2.jpg');"><span>Products</span></a>
+          <a class="rp-action-link" href="capabilities.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/container.jpg');"><span>Capabilities</span></a>
+          <a class="rp-action-link" href="deployment-models.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/mobile.jpg');"><span>Deployments</span></a>
+          <a class="rp-action-link" href="contact-us.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/camp.jpg');"><span>Contact Us</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rp-footer">
+    &copy; 2026 ReadyPod. <a href="contact-us.html">Contact ReadyPod</a>.
+  </footer>
+</body>
+</html>

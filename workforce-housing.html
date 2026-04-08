@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workforce Housing & Hospitality | ReadyPod</title>
+  <script src="rp-head-assets.js"></script>
+  <script src="site-nav.js" defer></script>
+  <style>
+    :root {
+      --rp-bg: #ffffff;
+      --rp-text: #1b1b1b;
+      --rp-muted: #f8f8f8;
+      --rp-accent: #db6527;
+      --rp-line: #e8e8e8;
+      --rp-dark: #0f0f0f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--rp-text);
+      background: var(--rp-bg);
+    }
+
+    .rp-page { width: 100%; }
+
+    .rp-section { padding: 72px 24px; }
+
+    .rp-container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    .rp-hero {
+      min-height: 56vh;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+    }
+
+    .rp-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.78), rgba(0,0,0,0.32));
+      z-index: 1;
+    }
+
+    .rp-hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .rp-hero-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 740px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.42), rgba(0,0,0,0.12));
+      border-radius: 14px;
+      padding: 26px 30px;
+    }
+
+    .rp-hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: 1.03;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      color: #fff !important;
+    }
+
+    .rp-subtitle {
+      margin: 0;
+      font-size: clamp(18px, 2.2vw, 30px);
+      line-height: 1.35;
+      color: rgba(255,255,255,0.94);
+      max-width: 38ch;
+    }
+
+    .rp-hero-cta {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 14px 26px;
+      border-radius: 999px;
+      background: var(--rp-accent);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid var(--rp-accent);
+      box-shadow: 0 10px 24px rgba(219,101,39,0.35);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      animation: rpPulse 2.4s ease-in-out infinite;
+    }
+
+    .rp-hero-cta:hover {
+      transform: translateY(-2px);
+      background: #c75720;
+      box-shadow: 0 14px 28px rgba(219,101,39,0.42);
+    }
+
+    @keyframes rpPulse {
+      0%, 100% { box-shadow: 0 10px 24px rgba(219,101,39,0.35); }
+      50% { box-shadow: 0 10px 32px rgba(219,101,39,0.55); }
+    }
+
+    .rp-muted { background: var(--rp-muted); }
+
+    /* Intro blurb */
+    .rp-intro-blurb {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .rp-intro-blurb p {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.75;
+      color: #3a3a3a;
+    }
+
+    /* Content splits (staggered rows) */
+    .rp-split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 60px 40px;
+      gap: 40px;
+    }
+
+    .rp-split-row.reverse { direction: rtl; }
+    .rp-split-row.reverse > * { direction: ltr; }
+
+    .rp-split-media {
+      overflow: hidden;
+      min-height: 360px;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .rp-split-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .rp-split-media iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: none;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .rp-split-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .rp-split-content h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.15;
+      color: #222;
+    }
+
+    .rp-split-content p {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #3a3a3a;
+      max-width: 520px;
+    }
+
+    .rp-split-content .rp-accent { color: var(--rp-accent); }
+
+    .rp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      background: var(--rp-accent);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .rp-btn:hover {
+      transform: translateY(-2px);
+      background: #c75720;
+    }
+
+    .rp-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: #fff;
+    }
+
+    /* Four icon feature cards */
+    .rp-features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .rp-feature-card {
+      text-align: center;
+      padding: 32px 20px;
+    }
+
+    .rp-feature-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--rp-accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      box-shadow: 0 6px 20px rgba(219,101,39,0.25);
+    }
+
+    .rp-feature-card h3 {
+      margin: 0 0 10px;
+      font-size: 19px;
+      color: #222;
+    }
+
+    .rp-feature-card p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* Divider bar */
+    .rp-divider-bar {
+      height: 20px;
+      background: #58676E;
+    }
+
+    /* Bottom CTA grid */
+    .rp-action-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .rp-action-link {
+      display: flex;
+      min-height: 320px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-decoration: none;
+      align-items: flex-end;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .rp-action-link::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.75));
+      transition: background .2s ease;
+    }
+
+    .rp-action-link:hover::before { background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(219,101,39,0.85)); }
+    .rp-action-link:hover,
+    .rp-action-link:hover span { color: #fff !important; }
+
+    .rp-action-link span {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      font-size: 28px;
+      line-height: 1.15;
+      font-weight: 700;
+    }
+
+    /* Footer */
+    .rp-footer {
+      background: var(--rp-dark);
+      color: #f0f0f0;
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .rp-footer a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .rp-split-row { grid-template-columns: 1fr; }
+      .rp-split-row.reverse { direction: ltr; }
+      .rp-features { grid-template-columns: repeat(2, 1fr); }
+      .rp-action-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .rp-hero-copy { padding: 18px; }
+      .rp-split-row { padding: 28px 18px; gap: 20px; }
+      .rp-features { grid-template-columns: 1fr; }
+      .rp-action-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="wp-theme-salient material" data-header-format="default" data-header-resize="0" data-full-width-header="true" data-header-search="false" data-slide-out-widget-area="true" data-slide-out-widget-area-style="slide-out-from-right" data-transparent-header="false" data-header-color="light" data-dropdown-style="minimal">
+  <rp-site-nav current-page="workforce-housing"></rp-site-nav>
+
+  <main class="rp-page">
+
+    <!-- ============ HERO ============ -->
+    <section class="rp-section rp-hero">
+      <img class="rp-hero-image" src="https://www.readypod.com/wp-content/uploads/2025/07/camp.jpg" alt="ReadyPod workforce housing village deployment">
+      <div class="rp-container">
+        <div class="rp-hero-copy">
+          <h1>Workforce Housing &amp; Hospitality</h1>
+          <p class="rp-subtitle">Private, modern homes for remote crews &mdash; deployed fast with no foundation, built to retain your workforce.</p>
+          <a class="rp-hero-cta" href="contact-us.html">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INTRO BLURB ============ -->
+    <section class="rp-section" style="background:#58676E;">
+      <div class="rp-container rp-intro-blurb">
+        <img src="https://www.boxhousevillages.com/wp-content/uploads/2024/05/villages-800.png" alt="BoxHouse Villages logo" style="display:block;margin:0 auto 24px;width:220px;">
+        <p style="font-size:clamp(18px, 2.4vw, 24px);line-height:1.65;font-weight:500;color:#fff;">ReadyPod offers versatile options for workforce housing needs in oil and gas, energy, mining, and farming, as well as a wide range of hospitality applications. Rapid deployment with no foundation translates to a faster path to project ROI, and comfortable, modern private homes translate to higher workforce retention and higher occupancy rates.</p>
+      </div>
+    </section>
+
+    <div class="rp-divider-bar"></div>
+
+    <!-- ============ BOX HOUSE VILLAGES (CASE STUDY) ============ -->
+    <section class="rp-split-row reverse">
+      <div class="rp-split-media">
+        <video autoplay muted loop playsinline poster="https://www.readypod.com/wp-content/uploads/2025/07/strong.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <source src="https://www.readypod.com/wp-content/uploads/2025/07/odessa2.mp4" type="video/mp4">
+        </video>
+
+      </div>
+      <div class="rp-split-content">
+        <h2>Box House Villages in Action</h2>
+        <p>Check out one of our Box House Villages &mdash; stand-alone private units in the heart of oil country. Each 380-square-foot home features a full kitchen, private bathroom, washer &amp; dryer, free WiFi, and luxurious furnishings. Privacy and comfort that keeps crews happy and retention rates high.</p>
+        <a class="rp-btn" href="https://www.boxhousevillages.com/" target="_blank" rel="noopener">
+          Visit BoxHouse Villages
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ BOTTOM CTA GRID ============ -->
+    <section class="rp-section">
+      <div class="rp-container">
+        <div class="rp-action-grid">
+          <a class="rp-action-link" href="products.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/bungalow-bed-2.jpg');"><span>Products</span></a>
+          <a class="rp-action-link" href="capabilities.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/container.jpg');"><span>Capabilities</span></a>
+          <a class="rp-action-link" href="deployment-models.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/mobile.jpg');"><span>Deployments</span></a>
+          <a class="rp-action-link" href="contact-us.html" style="background-image:url('https://www.readypod.com/wp-content/uploads/2025/07/camp.jpg');"><span>Contact Us</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rp-footer">
+    Ready to talk through your deployment needs? <a href="contact-us.html">Contact ReadyPod</a>.
+  </footer>
+</body>
+</html>
